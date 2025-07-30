@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse d'Investissement - Popey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 60mm;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            margin: 20px 0;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .header p {
+            color: #64748b;
+            font-size: 18px;
+            margin: 15px 0 0 0;
+            font-weight: 400;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section h1 {
+            color: #1e293b;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .section h1::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+        }
+        
+        .section h2 {
+            color: #334155;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .proposition-box {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .proposition-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .key-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 18px 15px;
+            text-align: center;
+            border-bottom: 1px solid #f1f5f9;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        tr:hover {
+            background: #f1f5f9;
+            transition: background 0.2s ease;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .roi-result {
+            font-size: 36px;
+            font-weight: 700;
+            color: #059669;
+            margin: 15px 0;
+            text-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+        }
+        
+        .assumptions {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 6px solid #f59e0b;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+        
+        .bullet-point {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .bullet-point::before {
+            content: "●";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(102, 126, 234, 0.6);
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .key-metrics,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+        }
+        
+        @media print {
+            .print-button {
+                display: none;
+            }
+            
+            body {
+                margin: 0;
+                max-width: none;
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header">
+            <h1>ANALYSE D'INVESTISSEMENT</h1>
+            <p>Projet Popey - Opportunité d'Investissement Premium</p>
+        </div>
+        
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">10 000 €</div>
+                    <div class="metric-label">Investissement par investisseur</div>
+                </div>
+                <div class="metric-card">
+                    <div style="color: #28a745;" class="metric-value">1%</div>
+                    <div class="metric-label">10 Parts acquises</div>
+                </div>
+            </div>
+            
+            <div class="bullet-point">20 investisseurs recherchés = <strong>20% du capital total</strong> pour <strong>200 000 €</strong></div>
+            <div class="bullet-point">Ambition : <strong>10 lieux Popey</strong> ouverts en 5 ans</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>📊 Hypothèses Financières</h2>
+        <div class="assumptions">
+            <div class="bullet-point"><strong>Chiffre d'affaires moyen par Popey :</strong> 550 000 € annuel</div>
+            <div class="bullet-point"><strong>Marge nette :</strong> 150 000 € par lieu et par an</div>
+            <div class="bullet-point"><strong>Objectif :</strong> 10 Popey → 1 500 000 € de bénéfice net annuel à maturité (année 5)</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>📈 Projection des Bénéfices sur 5 ans</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Année</th>
+                    <th>Nb de Popey</th>
+                    <th>Bénéfice annuel total</th>
+                    <th>Bénéfice cumulé</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>150 000 €</td>
+                    <td>150 000 €</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>450 000 €</td>
+                    <td>600 000 €</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>5</td>
+                    <td>750 000 €</td>
+                    <td>1 350 000 €</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>8</td>
+                    <td>1 200 000 €</td>
+                    <td>2 550 000 €</td>
+                </tr>
+                <tr style="background: #e8f5e8; font-weight: bold;">
+                    <td>5</td>
+                    <td>10</td>
+                    <td>1 500 000 €</td>
+                    <td>4 050 000 €</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <strong style="color: #2c5aa0; font-size: 18px;">➡️ Bénéfice net cumulé sur 5 ans = 4 050 000 €</strong>
+        </div>
+    </div>
+    <br><br>
+    <div class="section">
+        <h2>💰 Retour sur Investissement par Investisseur</h2>
+        
+        <div style="background: #f8f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #2c5aa0; margin-top: 0;">Revenus des dividendes (1% des bénéfices)</h3>
+            <div class="bullet-point">1% de 4 050 000 € = <strong>40 500 € sur 5 ans</strong></div>
+            
+            <h3 style="color: #2c5aa0;">Valeur de revente des parts</h3>
+            <div class="bullet-point">Valorisation estimée à 20 M€ pour les 10 Popey</div>
+            <div class="bullet-point">1% de 20 000 000 € = <strong>200 000 €</strong></div>
+        </div>
+        
+        <div class="highlight-box">
+            <h3 style="margin-top: 0; color: #28a745;">GAIN TOTAL ESTIMÉ</h3>
+            <div style="font-size: 18px; margin: 15px 0;">
+                40 050 € (dividendes) + 200 000 € (revente) = <strong>240 500 €</strong>
+            </div>
+            
+            <div style="border-top: 2px solid #28a745; padding-top: 15px; margin-top: 20px;">
+                <div>Investissement initial : <strong>10 000 €</strong></div>
+                <div>Gain net : <strong>230 500 €</strong></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Points Clés de l'Investissement</h2>
+        <div class="grid-4">
+            <div class="metric-card">
+                <div class="metric-value">24,05x</div>
+                <div class="metric-label">Multiple de retour</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5 ans</div>
+                <div class="metric-label">Horizon d'investissement</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">92%</div>
+                <div class="metric-label">TRI annuel moyen</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">10</div>
+                <div class="metric-label">Lieux Popey projetés</div>
+            </div>
+        </div>
+        
+    </div>
+    <br><br>
+
+    <div class="section">
+        <h1>🎯 Proposition d'Investissement 2</h1>
+        
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">10 000 € (avec remboursement sur 5 ans)</div>
+                    <div class="metric-label">Investissement par investisseur</div>
+                </div>
+                <div class="metric-card">
+                    <div style="color: #28a745; margin-top: 6%;" class="metric-value">119€/mois + 0,5%</div>
+                    <div class="metric-label">5 Parts acquises</div>
+                </div>
+            </div>
+
+        <div style="background: #f8f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #2c5aa0; margin-top: 0;">Revenus des dividendes (0.5% des bénéfices)</h3>
+            <div class="bullet-point">0.5% de 4 050 000 € = <strong>20 250 € sur 5 ans</strong></div>
+            
+            <h3 style="color: #2c5aa0;">Valeur de revente des parts</h3>
+            <div class="bullet-point">Valorisation estimée à 20 M€ pour les 10 Popey</div>
+            <div class="bullet-point">0.5% de 20 000 000 € = <strong>100 000 €</strong></div>
+        </div>
+        
+        <div class="highlight-box">
+            <h3 style="margin-top: 0; color: #28a745;">GAIN TOTAL ESTIMÉ</h3>
+            <div style="font-size: 18px; margin: 15px 0;">
+                20 250 € (dividendes) + 100 000 € (revente) = <strong>120 250 €</strong>
+            </div>
+            
+            <div style="border-top: 2px solid #28a745; padding-top: 15px; margin-top: 20px;">
+                <div>Investissement initial : <strong>10 000 € remboursés</strong></div>
+                <div>Gain net : <strong>120 250 €</strong></div>
+            </div>
+            
+        
+        </div>
+
+    <div class="footer">
+        <p>Document confidentiel - Analyse d'investissement Popey</p>
+        <p>Projections basées sur des hypothèses prudentes - Performance passée ne préjuge pas des résultats futurs</p>
+    </div>
+    <br><br><br><br>
+</body>
+</html>
